@@ -7,19 +7,13 @@
 // that auto-closes after 10s, and posting is gated until 1
 // minute after signup.
 //
-// VIP SETUP: paste your real Stripe Payment Link URL below once
-// you have it. In Stripe's Payment Link settings, set the
-// "After payment" confirmation page to redirect to:
-//   https://lifemax.in/vip-success.html
-// That page is what actually grants VIP — reaching it is only
-// possible by completing checkout via the link below.
+// VIP: the Stripe Payment Link URL lives in vip-config.js (one
+// place, shared with the VIP sales page) — edit it there.
 //
 // Include as: <script type="module" src="auth-ui.js"></script>
 // ============================================================
 
 import { AuthStore } from "./auth-firebase.js";
-
-const STRIPE_PAYMENT_LINK_URL = "PASTE_YOUR_STRIPE_PAYMENT_LINK_HERE";
 
 const overlay = document.getElementById("auth-overlay");
 const closeBtn = document.getElementById("auth-close");
@@ -198,7 +192,7 @@ export async function refreshAccountUI() {
       ? `<img src="${escapeHtml(status.user.pfpUrl)}" alt="" class="acc-pfp" onerror="this.style.display='none'">`
       : `<span class="acc-pfp acc-pfp-initial">${escapeHtml((status.user.username || "?").charAt(0).toUpperCase())}</span>`;
     const vipButtonHtml = !status.user.isVip
-      ? `<a href="${STRIPE_PAYMENT_LINK_URL}" class="acc-get-vip-btn" target="_blank" rel="noopener">Get VIP</a>`
+      ? `<a href="vip.html" class="acc-get-vip-btn">Get VIP</a>`
       : "";
     slot.innerHTML = `
       <div class="account-pill">
